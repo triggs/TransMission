@@ -15,17 +15,22 @@ public class Player : MonoBehaviour {
 	Vector3 velocity;
 	float velocityXSmoothing;
 
+	public GameObject otherHalf;
+	public bool activeHalf;
+	Renderer renderer;
 	Controller2D controller;
 
 	void Start() {
 		controller = GetComponent<Controller2D> ();
-
+		renderer = GetComponent<Renderer> ();
 		gravity = -(2 * jumpHeight) / Mathf.Pow (timeToJumpApex, 2);
 		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
 		print ("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
 	}
 
 	void Update() {
+
+		renderer.enabled = activeHalf;
 
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
@@ -35,6 +40,10 @@ public class Player : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Space) && controller.collisions.below) {
 			velocity.y = jumpVelocity;
+		}
+
+		if (Input.GetKeyDown(KeyCode.RightShift)) {
+			this.activeHalf = !this.activeHalf;
 		}
 
 		float targetVelocityX = input.x * moveSpeed;
