@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
-    public float xMargin = 1f;      // Distance in the x axis the player can move before the camera follows.
-    public float yMargin = 1f;      // Distance in the y axis the player can move before the camera follows.
+    public float xMoveBeforeFollow = 0f;      // Distance in the x axis the player can move before the camera follows.
+    public float yMoveBeforeFollow = 0f;      // Distance in the y axis the player can move before the camera follows.
     public float xSmooth = 8f;      // How smoothly the camera catches up with it's target movement in the x axis.
     public float ySmooth = 8f;      // How smoothly the camera catches up with it's target movement in the y axis.
     public Vector2 maxXAndY;        // The maximum x and y coordinates the camera can have.
@@ -12,32 +11,58 @@ public class CameraFollow : MonoBehaviour
 
 
     private Transform player;       // Reference to the player's transform.
+    private float old_pos;
+    private direction playerMovementDirection;
 
+    enum direction
+    {
+        left, stopped, right
+    };
 
     void Awake()
     {
         // Setting up the reference.
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            old_pos = player.transform.position.x;
+        }
     }
-
 
     bool CheckXMargin()
     {
         // Returns true if the distance between the camera and the player in the x axis is greater than the x margin.
-        return Mathf.Abs(transform.position.x - player.position.x) > xMargin;
+        return Mathf.Abs(transform.position.x - player.position.x) > xMoveBeforeFollow;
     }
 
 
     bool CheckYMargin()
     {
         // Returns true if the distance between the camera and the player in the y axis is greater than the y margin.
-        return Mathf.Abs(transform.position.y - player.position.y) > yMargin;
+        return Mathf.Abs(transform.position.y - player.position.y) > yMoveBeforeFollow;
     }
 
 
     void FixedUpdate()
     {
-        TrackPlayer();
+        if (player != null)
+        {
+
+            if (old_pos < player.transform.position.x)
+            {
+                playerMovementDirection = direction.right;
+            }
+            else if (old_pos > player.transform.position.x)
+            {
+                playerMovementDirection = direction.left;
+            }
+            else
+            {
+                playerMovementDirection = direction.stopped;
+            }
+            old_pos = player.transform.position.x;
+            TrackPlayer();
+        }
     }
 
 
