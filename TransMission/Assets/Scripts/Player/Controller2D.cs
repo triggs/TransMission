@@ -44,11 +44,14 @@ public class Controller2D : MonoBehaviour {
 			Vector2 rayOrigin = (directionX == -1)?raycastOrigins.bottomLeft:raycastOrigins.bottomRight;
 			rayOrigin += Vector2.up * (horizontalRaySpacing * i);
 			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
-
 			Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength,Color.red);
 
 			if (hit) {
-				velocity.x = (hit.distance - skinWidth) * directionX;
+                if (hit.transform.gameObject.tag == "Breakable")
+                {
+                    Destroy(hit.transform.gameObject);
+                }
+                velocity.x = (hit.distance - skinWidth) * directionX;
 				rayLength = hit.distance;
 
 				collisions.left = directionX == -1;
@@ -66,10 +69,16 @@ public class Controller2D : MonoBehaviour {
 			rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
 			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-			Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength,Color.red);
+            
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength,Color.red);
 
 			if (hit) {
-				velocity.y = (hit.distance - skinWidth) * directionY;
+                if (hit.transform.gameObject.tag == "Breakable")
+                {
+                    Destroy(hit.transform.gameObject);
+                }
+
+                velocity.y = (hit.distance - skinWidth) * directionY;
 				rayLength = hit.distance;
 
 				collisions.below = directionY == -1;
