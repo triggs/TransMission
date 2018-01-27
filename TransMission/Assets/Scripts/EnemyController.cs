@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum EnemyType
+{
+    LedgePatrol, // dumbly partols along a ledge until its blocked or at the edge, then turns around.
+    Static,
+    Chaser
+}
+
 public class EnemyController : MonoBehaviour
 {
     public LayerMask enemyMask;
@@ -10,6 +17,7 @@ public class EnemyController : MonoBehaviour
     public float enemySpeed;
     private float enemyWidth, enemyHeight;
 
+    public EnemyType EnemyType;
 
     void Start()
     {
@@ -21,6 +29,24 @@ public class EnemyController : MonoBehaviour
     }
 
     void FixedUpdate()
+    {
+        switch (EnemyType)
+        {
+            case EnemyType.LedgePatrol:
+                LedgePatrolMoveBehaviour();
+                break;
+            case EnemyType.Static:
+                StaticMoveBehaviour();
+                break;
+            case EnemyType.Chaser:
+                ChaserMoveBehaviour();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void LedgePatrolMoveBehaviour()
     {
         //grounded?
         Vector2 lineCastPosition = enemyTransform.position.toVector2() - enemyTransform.right.toVector2() * enemyWidth + Vector2.up * enemyHeight;
@@ -44,5 +70,18 @@ public class EnemyController : MonoBehaviour
         Vector2 enemyVelocity = enemyBody.velocity;
         enemyVelocity.x = enemySpeed;
         enemyBody.velocity = enemyVelocity;
+    }
+
+    private void StaticMoveBehaviour()
+    {
+        //Dont move. just stand still.
+    }
+
+    private void ChaserMoveBehaviour()
+    {
+        //Stand Still
+        //If you spot the player in front of you, chase him.
+        //If you come to a ledge or a wall, stop.
+        //If you lose sight of the player, return to start position.
     }
 }
