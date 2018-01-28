@@ -5,6 +5,6 @@ using UnityEngine;
 public class Destructible : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Destroy(other.gameObject);
+		Destroy(this.gameObject);
 	}
 }
