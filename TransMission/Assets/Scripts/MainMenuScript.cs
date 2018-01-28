@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour {
 
-    public Text newGameText;
-    public Text exitGameText;
     public Button startText;
     public Button exitText;
     // Use this for initialization
@@ -15,14 +12,9 @@ public class MainMenuScript : MonoBehaviour {
         exitText = exitText.GetComponent<Button>();
     }
 	
-	// Update is called once per frame
-	void Update () {
-
-    }
-
     public void StartGame()
     {
-        // SceneManager.LoadScene("Difficulty");
+        SceneManager.LoadScene("Scene_Derek");
     }
 
     public void ExitGame()
