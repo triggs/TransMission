@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
 
 		if (controller.collisions.below) {
 			this.animator.SetBool ("jumping", false);
+
 		}
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
         {
             velocity.y = jumpVelocity;
-			this.animator.SetBool ("jumping", true);
+  			this.animator.SetBool ("jumping", true);
         }
 
         if (attacking)
@@ -130,6 +131,10 @@ public class Player : MonoBehaviour
 				this.animator.SetBool ("groundPound", false);
 			}
         }
+		if (!Input.GetKey (KeyCode.Space)) {
+			this.animator.SetBool ("floating", false);
+			this.animator.SetBool ("groundPound", false);
+		}
         float targetVelocityX = input.x * moveSpeedToUse;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.y += gravityToUse * Time.deltaTime;
