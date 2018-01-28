@@ -75,11 +75,16 @@ public class Player : MonoBehaviour
             velocity.y = 0;
         }
 
+		if (controller.collisions.below) {
+			this.animator.SetBool ("jumping", false);
+		}
+
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
         {
             velocity.y = jumpVelocity;
+			this.animator.SetBool ("jumping", true);
         }
 
         if (attacking)
@@ -108,21 +113,22 @@ public class Player : MonoBehaviour
         float moveSpeedToUse = moveSpeed;
         if (velocity.y < 0)
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                //falling;
-                if (gender == Gender.Male) // male
-                {
-                    //ground pound
-                    gravityToUse = specialFallGravity;
-                }
-                else // isfemale
-                {
-                    //float down
-                    gravityToUse = specialFallGravity;
-                    moveSpeedToUse = specialFallMoveSpeed;
-                }
-            }
+			if (Input.GetKey (KeyCode.Space)) {
+				//falling;
+				if (gender == Gender.Male) { // male
+					//ground pound
+					gravityToUse = specialFallGravity;
+					this.animator.SetBool ("groundPound", true);
+				} else { // isfemale
+					//float down
+					gravityToUse = specialFallGravity;
+					moveSpeedToUse = specialFallMoveSpeed;
+					this.animator.SetBool ("floating", true);
+				}
+			} else {
+				this.animator.SetBool ("floating", false);
+				this.animator.SetBool ("groundPound", false);
+			}
         }
         float targetVelocityX = input.x * moveSpeedToUse;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
