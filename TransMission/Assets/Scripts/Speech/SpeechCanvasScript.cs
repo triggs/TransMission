@@ -8,30 +8,28 @@ public class SpeechCanvasScript : MonoBehaviour {
     // Public objects
     public GameObject nme;
     public Canvas canvas;
-    public double speachRadius = 20;
+    public double detectRadius = 20;
     public Text quote_Text;
 
     // Private objects
-    public GameObject player;
+    private GameObject player;
     private float offX = 0.3f;
-    private float offY = 2.6f;
+    private float offY = 2.2f;
     private float offZ = 0;
     private List<string> quotes;
     private System.Random rnd;
-
-    public Component scriptText;
 
     // Use this for initialization
     void Start()
     {
         MessageOff();
-        player = GameObject.Find("Player");
+        //player = GameObject.FindGameObjectsWithTag("Player")[0];
+        player = GetPlayer();
         ReadPoemsPlease();
         rnd = new System.Random();
         //offX = 0.3f;
         //offY = 2.6f; // todo: get it from the enemy object
         //offZ = 0;
-
     }
 
     private void Update()
@@ -42,9 +40,11 @@ public class SpeechCanvasScript : MonoBehaviour {
             canvas.transform.position = OffsetPosition(position);
         }
 
+        player = GetPlayer();
+
         if (player != null)
         {
-            if (GetDistanceFromPlayer(player.transform.position, canvas.transform.position) < speachRadius)
+            if (GetDistanceFromPlayer(player.transform.position, canvas.transform.position) < detectRadius)
             {
                 MessageOn(true);
             }
@@ -75,13 +75,9 @@ public class SpeechCanvasScript : MonoBehaviour {
         if (canvas.enabled) { return; }
         if (randomQuote)
         {
-            //messageCanvas.guiText = SelectRandomSixteenthCenturyPoetryLine(messageCanvas.guiText);
             int lineToRead = rnd.Next(0, quotes.Count-1);
             string quote = quotes[lineToRead];
-            // scriptText = GameObject.Find("/Canvas/Text").GetComponent("Text (Script)");
-            // scriptText.
             quote_Text.text = quote;
-            //quote_Text.text = "jhgdkjgfdhlfi jlhfgd ;;oidhfos";
         }
         canvas.enabled = true;
     }
@@ -112,10 +108,11 @@ public class SpeechCanvasScript : MonoBehaviour {
             }
             quotes.Add(line);
         }
-        //quotes.Add("Twas brillig, and the slithy toves ");
-        //quotes.Add("Did gyre and gimble in the wabe;");
-        //quotes.Add("All mimsy were the borogoves,");
     }
+
+    private string Wigglesworth =
+@"Line 1
+Line 2";
 
     private string Jabberwocky = 
 @"Twas brillig, and the slithy toves 
@@ -153,37 +150,18 @@ O frabjous day! Callooh! Callay!”
     All mimsy were the borogoves,
    And the mome raths outgrabe.";
 
-    /*
-
-    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.tag == "Enemy")
-    //    {
-    //        messageCanvas.enabled = true;
-    //        //MessageOn();
-    //    }
-    //}
-
-    //void OnTriggerExit2D(Collider2D other)
-    //{
-    //    if (other.name == "Enemy")
-    //    {
-    //        MessageOff();
-    //    }
-    //}
-
-    private void MessageOn(bool randomQuote = false)
+    private GameObject GetPlayer()
     {
-        // messageCanvas.guiText = SelectRandomSixteenthCenturyPoetryLine(messageCanvas.guiText);
-        this.enabled = true;
+        GameObject go = GameObject.FindGameObjectsWithTag("Player")[0];
+        if (go == null)
+        {
+            go = GameObject.Find("Female");
+        }
+        if (go == null)
+        {
+            go = GameObject.Find("Male");
+        }
+        return go;
     }
-
-    private void MessageOff()
-    {
-        this.enabled = false;
-    }
-
-
-    */
 }
 
