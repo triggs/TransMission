@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
     public float moveSpeed = 6;
 
     float gravity;
-    public float slowFallGravity;
-    public float slowFallMoveSpeed;
+    public float specialFallGravity;
+    public float specialFallMoveSpeed;
     float jumpVelocity;
     Vector3 velocity;
     float velocityXSmoothing;
@@ -35,9 +35,14 @@ public class Player : MonoBehaviour
     public float attackTimer = 0;
 
     public Gender gender;
+    public Transform restArea;
 
     void Start()
     {
+        if (!activeHalf)
+        {
+            this.transform.position = restArea.transform.position;
+        }
         controller = GetComponent<Controller2D>();
         charRenderer = GetComponent<Renderer>();
         animator = GetComponent<Animator>();
@@ -49,9 +54,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //		if (!activeHalf) {
-        //			return;
-        //		}
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (activeHalf)
+            {
+                Vector2 tempPos = this.transform.position;
+                this.transform.position = restArea.transform.position;
+                otherHalf.transform.position = tempPos;
+            }
+            this.activeHalf = !this.activeHalf;
+        }
+        if (!activeHalf)
+        { 
+            return;
+        }
         charRenderer.enabled = activeHalf;
 
         if (controller.collisions.above || controller.collisions.below)
@@ -80,19 +96,12 @@ public class Player : MonoBehaviour
         }
         else
         {
-
-            if (Input.GetKeyDown(KeyCode.RightShift))
-            {
-                this.activeHalf = !this.activeHalf;
-            }
-
             if (Input.GetKeyDown(KeyCode.E) && !this.attacking)
             {
                 this.attacking = true;
                 this.animator.SetBool("attacking", this.attacking);
                 this.attackTimer = attackTime;
             }
-
         }
         
         float gravityToUse = gravity;
@@ -105,13 +114,13 @@ public class Player : MonoBehaviour
                 if (gender == Gender.Male) // male
                 {
                     //ground pound
-                    gravityToUse = slowFallGravity;
+                    gravityToUse = specialFallGravity;
                 }
                 else // isfemale
                 {
                     //float down
-                    gravityToUse = slowFallGravity;
-                    moveSpeedToUse = slowFallMoveSpeed;
+                    gravityToUse = specialFallGravity;
+                    moveSpeedToUse = specialFallMoveSpeed;
                 }
             }
         }

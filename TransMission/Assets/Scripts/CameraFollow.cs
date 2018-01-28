@@ -10,10 +10,11 @@ public class CameraFollow : MonoBehaviour
     public Vector2 minXAndY;        // The minimum x and y coordinates the camera can have.
 
 
-    public Transform player;       // Reference to the player's transform.
+    public Player male;       // Reference to the male player's transform.
+    public Player female;       // Reference to the female player's transform.
     private float old_pos;
     private direction playerMovementDirection;
-
+    private Transform player;
 
     enum direction
     {
@@ -23,10 +24,23 @@ public class CameraFollow : MonoBehaviour
     void Awake()
     {
         // Setting up the reference.
-        if (GameObject.FindGameObjectWithTag("Player") != null)
+        GetActivePlayerTransform();
+        if (player != null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
             old_pos = player.transform.position.x;
+        }
+    }
+
+    private void GetActivePlayerTransform()
+    {
+        if(male.activeHalf) 
+        {
+            player = male.transform;
+        }
+        else
+        {
+            player = female.transform;
         }
     }
 
@@ -46,9 +60,9 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
+        GetActivePlayerTransform();
         if (player != null)
         {
-
             if (old_pos < player.transform.position.x)
             {
                 playerMovementDirection = direction.right;
