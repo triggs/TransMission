@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 4
   timeToJumpApex: 0.4
-  moveSpeed: 6
+  moveSpeed: 3
   specialFallGravity: -0.001
   specialFallMoveSpeed: 15
   otherHalf: {fileID: 0}

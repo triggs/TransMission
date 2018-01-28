@@ -58,7 +58,7 @@ public class EnemyController : MonoBehaviour
     {
         //grounded?
         Vector2 lineCastPosition = enemyTransform.position.toVector2() - enemyTransform.right.toVector2() * enemyWidth + Vector2.up * enemyHeight;
-        Debug.DrawLine(lineCastPosition, lineCastPosition + Vector2.down);
+        Debug.DrawLine(lineCastPosition, lineCastPosition + Vector2.down * 0.05f);
         bool isGrounded = Physics2D.Linecast(lineCastPosition, lineCastPosition + Vector2.down, enemyMask);
 
         //blocked?
