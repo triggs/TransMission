@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 212926345274759666}
   - component: {fileID: 95671620242559576}
   - component: {fileID: 50058495740005532}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Male
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527926780456878}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.06, y: -1.28, z: 0}
+  m_LocalPosition: {x: -7, y: -1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.029740334, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -88,7 +88,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 0.40207672, y: 0.64}
   m_EdgeRadius: 0
 --- !u!95 &95671620242559576
 Animator:
@@ -129,6 +129,7 @@ MonoBehaviour:
   attackTime: 0.333
   attackTimer: 0
   gender: 0
+  restArea: {fileID: 0}
 --- !u!114 &114513682927644602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8448
   horizontalRayCount: 4
   verticalRayCount: 4
 --- !u!212 &212926345274759666
