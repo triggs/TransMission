@@ -84,7 +84,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 12
 --- !u!114 &114650732353985248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,8 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3430681f2aa6e9e4cb28aadff3512f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  enemy: 0
+  nme: {fileID: 0}
+  canvas: {fileID: 0}
+  detectRadius: 20
+  quote_Text: {fileID: 0}
 --- !u!114 &114969256912380768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0, y: -2}
   m_SizeDelta: {x: 90, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224756421572063684
