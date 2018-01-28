@@ -120,11 +120,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 4
   timeToJumpApex: 0.4
+  moveSpeed: 6
+  slowFallGravity: -0.001
+  slowFallMoveSpeed: 15
   otherHalf: {fileID: 0}
   activeHalf: 1
   attacking: 0
   attackTime: 0.333
   attackTimer: 0
+  gender: 0
 --- !u!114 &114513682927644602
 MonoBehaviour:
   m_ObjectHideFlags: 1
