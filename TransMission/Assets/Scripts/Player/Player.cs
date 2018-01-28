@@ -2,81 +2,124 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public enum Gender
+{
+    Male, Female
+}
 
-	public float jumpHeight = 4;
-	public float timeToJumpApex = .4f;
-	float accelerationTimeAirborne = .2f;
-	float accelerationTimeGrounded = .1f;
-	float moveSpeed = 6;
+public class Player : MonoBehaviour
+{
 
-	float gravity;
-	float jumpVelocity;
-	Vector3 velocity;
-	float velocityXSmoothing;
+    public float jumpHeight = 4;
+    public float timeToJumpApex = .4f;
+    float accelerationTimeAirborne = .2f;
+    float accelerationTimeGrounded = .1f;
+    public float moveSpeed = 6;
 
-	public GameObject otherHalf;
-	public bool activeHalf;
-	Renderer charRenderer;
-	SpriteRenderer spriteRenderer;
-	Controller2D controller;
-	Animator animator;
+    float gravity;
+    public float slowFallGravity;
+    public float slowFallMoveSpeed;
+    float jumpVelocity;
+    Vector3 velocity;
+    float velocityXSmoothing;
 
-	public bool attacking = false;
-	public float attackTime = 0.333f;//333 millis
-	public float attackTimer = 0;
+    public GameObject otherHalf;
+    public bool activeHalf;
+    Renderer charRenderer;
+    SpriteRenderer spriteRenderer;
+    Controller2D controller;
+    Animator animator;
 
-	void Start() {
-		controller = GetComponent<Controller2D> ();
-		charRenderer = GetComponent<Renderer> ();
-		animator = GetComponent<Animator> ();
-		spriteRenderer = GetComponent<SpriteRenderer> ();
-		gravity = -(2 * jumpHeight) / Mathf.Pow (timeToJumpApex, 2);
-		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-		print ("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
-	}
+    public bool attacking = false;
+    public float attackTime = 0.333f;//333 millis
+    public float attackTimer = 0;
 
-	void Update() {
-//		if (!activeHalf) {
-//			return;
-//		}
-		charRenderer.enabled = activeHalf;
+    public Gender gender;
 
-		if (controller.collisions.above || controller.collisions.below) {
-			velocity.y = 0;
-		}
+    void Start()
+    {
+        controller = GetComponent<Controller2D>();
+        charRenderer = GetComponent<Renderer>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
+    }
 
-		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+    void Update()
+    {
+        //		if (!activeHalf) {
+        //			return;
+        //		}
+        charRenderer.enabled = activeHalf;
 
-		if (Input.GetKeyDown (KeyCode.Space) && controller.collisions.below) {
-			velocity.y = jumpVelocity;
-		}
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
 
-		if (attacking) {
-			if (this.attackTimer > 0) {
-				this.attackTimer -= Time.deltaTime;
-			} else {
-				this.attacking = false;
-				this.animator.SetBool ("attacking", this.attacking);
-			}
-		} else {
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-			if (Input.GetKeyDown (KeyCode.RightShift)) {
-				this.activeHalf = !this.activeHalf;
-			}
+        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
+        {
+            velocity.y = jumpVelocity;
+        }
 
-			if (Input.GetKeyDown (KeyCode.E) && !this.attacking) {
-				this.attacking = true;
-				this.animator.SetBool ("attacking", this.attacking);
-				this.attackTimer = attackTime;
-			}
+        if (attacking)
+        {
+            if (this.attackTimer > 0)
+            {
+                this.attackTimer -= Time.deltaTime;
+            }
+            else
+            {
+                this.attacking = false;
+                this.animator.SetBool("attacking", this.attacking);
+            }
+        }
+        else
+        {
 
-		}
-		float targetVelocityX = input.x * moveSpeed;
-		velocity.x = Mathf.SmoothDamp (velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
-		velocity.y += gravity * Time.deltaTime;
-		controller.Move (velocity * Time.deltaTime);
-		this.animator.SetFloat ("velocity", Mathf.Abs(velocity.x * Time.deltaTime));
-		this.spriteRenderer.flipX = velocity.x < -0.01;
-	}
+            if (Input.GetKeyDown(KeyCode.RightShift))
+            {
+                this.activeHalf = !this.activeHalf;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && !this.attacking)
+            {
+                this.attacking = true;
+                this.animator.SetBool("attacking", this.attacking);
+                this.attackTimer = attackTime;
+            }
+
+        }
+        
+        float gravityToUse = gravity;
+        float moveSpeedToUse = moveSpeed;
+        if (velocity.y < 0)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                //falling;
+                if (gender == Gender.Male) // male
+                {
+                    //ground pound
+                    gravityToUse = slowFallGravity;
+                }
+                else // isfemale
+                {
+                    //float down
+                    gravityToUse = slowFallGravity;
+                    moveSpeedToUse = slowFallMoveSpeed;
+                }
+            }
+        }
+        float targetVelocityX = input.x * moveSpeedToUse;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        velocity.y += gravityToUse * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+        this.animator.SetFloat("velocity", Mathf.Abs(velocity.x * Time.deltaTime));
+        this.spriteRenderer.flipX = velocity.x < -0.01;
+    }
 }

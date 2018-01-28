@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1971484874003328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.05, y: -1.33, z: -0.08203125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61266251599479440
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -120,11 +120,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 4
   timeToJumpApex: 0.4
+  moveSpeed: 6
+  slowFallGravity: -0.001
+  slowFallMoveSpeed: 15
   otherHalf: {fileID: 0}
-  activeHalf: 0
+  activeHalf: 1
   attacking: 0
   attackTime: 0.333
   attackTimer: 0
+  gender: 1
 --- !u!114 &114813549277443128
 MonoBehaviour:
   m_ObjectHideFlags: 1
