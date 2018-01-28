@@ -167,6 +167,15 @@ Prefab:
       propertyPath: cameraDepth
       value: -3
       objectReference: {fileID: 0}
+    - target: {fileID: 4691451756615970, guid: 0eeb4d28b2a659d4490d5d2eea4b0c3e, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.47500208
+      objectReference: {fileID: 0}
+    - target: {fileID: 20411297664836274, guid: 0eeb4d28b2a659d4490d5d2eea4b0c3e,
+        type: 2}
+      propertyPath: orthographic size
+      value: 1.6033095
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0eeb4d28b2a659d4490d5d2eea4b0c3e, type: 2}
   m_IsPrefabParent: 0
@@ -642,6 +651,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114131065485785058, guid: 85fb03d0d58ef8c47b0be5bf2b14d2a4,
+        type: 2}
+      propertyPath: jumpHeight
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85fb03d0d58ef8c47b0be5bf2b14d2a4, type: 2}
   m_IsPrefabParent: 0
@@ -850,6 +864,11 @@ Prefab:
     - target: {fileID: 4596735810970706, guid: 79508d33b3fd53046b00d68e0ab01720, type: 2}
       propertyPath: m_LocalScale.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114484929699208154, guid: 79508d33b3fd53046b00d68e0ab01720,
+        type: 2}
+      propertyPath: jumpHeight
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79508d33b3fd53046b00d68e0ab01720, type: 2}
