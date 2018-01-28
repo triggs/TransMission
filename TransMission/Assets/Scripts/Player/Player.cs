@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public bool attacking = false;
     public float attackTime = 0.333f;//333 millis
     public float attackTimer = 0;
+	public bool groundPound;
 
     public Gender gender;
     public Transform restArea;
@@ -120,6 +121,7 @@ public class Player : MonoBehaviour
 					//ground pound
 					gravityToUse = specialFallGravity;
 					this.animator.SetBool ("groundPound", true);
+					this.groundPound = true;
 				} else { // isfemale
 					//float down
 					gravityToUse = specialFallGravity;
@@ -129,11 +131,13 @@ public class Player : MonoBehaviour
 			} else {
 				this.animator.SetBool ("floating", false);
 				this.animator.SetBool ("groundPound", false);
+				this.groundPound = false;
 			}
         }
 		if (!Input.GetKey (KeyCode.Space)) {
 			this.animator.SetBool ("floating", false);
 			this.animator.SetBool ("groundPound", false);
+			this.groundPound = false;
 		}
         float targetVelocityX = input.x * moveSpeedToUse;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);

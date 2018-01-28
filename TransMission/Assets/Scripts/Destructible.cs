@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class Destructible : MonoBehaviour {
 
+	public bool destroyedByGroundPound;
+	public bool destroyedByAttack;
+
 	void OnTriggerEnter2D(Collider2D other) {
-		Destroy(this.gameObject);
+		bool destroy = false;
+		if (other.tag == "Player") {
+			Player player = other.gameObject.GetComponent<Player> ();
+			destroy = 
+				(destroyedByGroundPound && ((Player)other.transform.gameObject.GetComponent<Player>()).groundPound) 
+				|| (destroyedByAttack && ((Player)other.transform.gameObject.GetComponent<Player>()).attacking);
+		}
+		if (destroy) {
+			Destroy (this.gameObject);
+		}
 	}
 }
