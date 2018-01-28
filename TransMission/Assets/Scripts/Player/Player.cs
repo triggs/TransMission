@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.RightShift))
             {
+                otherHalf.transform.position = this.transform.position;
                 this.activeHalf = !this.activeHalf;
             }
 

@@ -38,7 +38,6 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(direction);
         switch (EnemyType)
         {
             case EnemyType.LedgePatrol:
