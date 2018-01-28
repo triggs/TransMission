@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         charRenderer = GetComponent<Renderer>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        gravity = -jumpHeight / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
     }
