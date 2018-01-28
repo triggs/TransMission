@@ -103,7 +103,9 @@ MonoBehaviour:
   ySmooth: 2
   maxXAndY: {x: 5, y: 5}
   minXAndY: {x: -5, y: -5}
-  player: {fileID: 0}
+  male: {fileID: 0}
+  female: {fileID: 0}
+  cameraDepth: 3
 --- !u!124 &124602358616008432
 Behaviour:
   m_ObjectHideFlags: 1

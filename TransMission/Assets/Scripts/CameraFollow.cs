@@ -13,8 +13,8 @@ public class CameraFollow : MonoBehaviour
     public Player male;       // Reference to the male player's transform.
     public Player female;       // Reference to the female player's transform.
     private float old_pos;
-    private direction playerMovementDirection;
     private Transform player;
+    public float cameraDepth;
 
     enum direction
     {
@@ -61,23 +61,25 @@ public class CameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         GetActivePlayerTransform();
-        if (player != null)
-        {
-            if (old_pos < player.transform.position.x)
-            {
-                playerMovementDirection = direction.right;
-            }
-            else if (old_pos > player.transform.position.x)
-            {
-                playerMovementDirection = direction.left;
-            }
-            else
-            {
-                playerMovementDirection = direction.stopped;
-            }
-            old_pos = player.transform.position.x;
-            TrackPlayer();
-        }
+
+        this.transform.position = new Vector3(player.position.x, player.position.y, cameraDepth);
+        //if (player != null)
+        //{
+        //    if (old_pos < player.transform.position.x)
+        //    {
+        //        playerMovementDirection = direction.right;
+        //    }
+        //    else if (old_pos > player.transform.position.x)
+        //    {
+        //        playerMovementDirection = direction.left;
+        //    }
+        //    else
+        //    {
+        //        playerMovementDirection = direction.stopped;
+        //    }
+        //    old_pos = player.transform.position.x;
+        //    TrackPlayer();
+        //}
     }
 
 
