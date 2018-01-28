@@ -14,7 +14,7 @@ public class SpeechCanvasScript : MonoBehaviour {
     // Private objects
     private GameObject player;
     private float offX = 0.3f;
-    private float offY = 2.2f;
+    private float offY = 1.0f;
     private float offZ = 0;
     private List<string> quotes;
     private System.Random rnd;
