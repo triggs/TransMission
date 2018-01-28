@@ -99,7 +99,7 @@ public class SpeechCanvasScript : MonoBehaviour {
     private void ReadPoemsPlease()
     {
         quotes = new List<string>();
-        foreach (string s in Jabberwocky.Split('\n'))
+        foreach (string s in Wigglesworth.Split('\n'))
         {
             string line = s.Trim();
             if (string.IsNullOrEmpty(line))
@@ -111,44 +111,59 @@ public class SpeechCanvasScript : MonoBehaviour {
     }
 
     private string Wigglesworth =
-@"Line 1
-Line 2";
+@"God doth chastise his own
+In love, their Souls to save:
+And lets them not run wilde▪ with them
+That no Correction have.
+Now as the Rod restrains*
+From posting down to Hell:
+So by the same God doth excite
+And teach us to do well.
 
-    private string Jabberwocky = 
-@"Twas brillig, and the slithy toves 
-   Did gyre and gimble in the wabe;
-    All mimsy were the borogoves,
-   And the mome raths outgrabe.
+Affliction is Christ's School*
+Wherein he teacheth his
+To know and do their Duty, and
+To mend what is amiss.
+For though Afflictions may
+Unto the Flesh be painful:
+David and other Saints of God
+Have found them very gainful.";
 
-Beware the Jabberwock, my son
-   The jaws that bite, the claws that catch!
-Beware the Jubjub bird, and shun
-   The frumious Bandersnatch!
+//    private string Jabberwocky = 
+//@"Twas brillig, and the slithy toves 
+//   Did gyre and gimble in the wabe;
+//    All mimsy were the borogoves,
+//   And the mome raths outgrabe.
 
-He took his vorpal sword in hand; 
-   Long time the manxome foe he sought—
-So rested he by the Tumtum tree, 
-   And stood awhile in thought.
+//Beware the Jabberwock, my son
+//   The jaws that bite, the claws that catch!
+//Beware the Jubjub bird, and shun
+//   The frumious Bandersnatch!
 
-And, as in uffish thought he stood,
-   The Jabberwock, with eyes of flame,
-Came whiffling through the tulgey wood, 
-   And burbled as it came!
+//He took his vorpal sword in hand; 
+//   Long time the manxome foe he sought—
+//So rested he by the Tumtum tree, 
+//   And stood awhile in thought.
 
-One, two! One, two! And through and through
-   The vorpal blade went snicker-snack!
-He left it dead, and with its head
-   He went galumphing back.
+//And, as in uffish thought he stood,
+//   The Jabberwock, with eyes of flame,
+//Came whiffling through the tulgey wood, 
+//   And burbled as it came!
 
-And hast thou slain the Jabberwock? 
-   Come to my arms, my beamish boy!
-O frabjous day! Callooh! Callay!” 
-   He chortled in his joy.
+//One, two! One, two! And through and through
+//   The vorpal blade went snicker-snack!
+//He left it dead, and with its head
+//   He went galumphing back.
 
-‘Twas brillig, and the slithy toves
-   Did gyre and gimble in the wabe;
-    All mimsy were the borogoves,
-   And the mome raths outgrabe.";
+//And hast thou slain the Jabberwock? 
+//   Come to my arms, my beamish boy!
+//O frabjous day! Callooh! Callay!” 
+//   He chortled in his joy.
+
+//‘Twas brillig, and the slithy toves
+//   Did gyre and gimble in the wabe;
+//    All mimsy were the borogoves,
+//   And the mome raths outgrabe.";
 
     private GameObject GetPlayer()
     {
