@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
     public float moveSpeed = 6;
 
     float gravity;
-    public float slowFallGravity;
-    public float slowFallMoveSpeed;
+    public float specialFallGravity;
+    public float specialFallMoveSpeed;
     float jumpVelocity;
     Vector3 velocity;
     float velocityXSmoothing;
@@ -105,13 +105,13 @@ public class Player : MonoBehaviour
                 if (gender == Gender.Male) // male
                 {
                     //ground pound
-                    gravityToUse = slowFallGravity;
+                    gravityToUse = specialFallGravity;
                 }
                 else // isfemale
                 {
                     //float down
-                    gravityToUse = slowFallGravity;
-                    moveSpeedToUse = slowFallMoveSpeed;
+                    gravityToUse = specialFallGravity;
+                    moveSpeedToUse = specialFallMoveSpeed;
                 }
             }
         }
