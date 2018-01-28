@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: e0261e510e979a14499059a5b62bb4ac
   - enabled: 1
-    path: Assets/Scenes/Scene_Derek.unity
-    guid: 8c92887b02447294c9b2a34a06233b9e
+    path: Assets/Scenes/Scene_Main.unity
+    guid: d9fc36627fa1ba74fafa3a19de6282a0

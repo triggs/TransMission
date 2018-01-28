@@ -14,7 +14,7 @@ public class MainMenuScript : MonoBehaviour {
 	
     public void StartGame()
     {
-        SceneManager.LoadScene("Scene_Derek");
+        SceneManager.LoadScene("Scene_Main");
     }
 
     public void ExitGame()
