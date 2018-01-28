@@ -17,20 +17,30 @@ public class Player : MonoBehaviour {
 
 	public GameObject otherHalf;
 	public bool activeHalf;
-	Renderer renderer;
+	Renderer charRenderer;
+	SpriteRenderer spriteRenderer;
 	Controller2D controller;
+	Animator animator;
+
+	public bool attacking = false;
+	public float attackTime = 0.333f;//333 millis
+	public float attackTimer = 0;
 
 	void Start() {
 		controller = GetComponent<Controller2D> ();
-		renderer = GetComponent<Renderer> ();
+		charRenderer = GetComponent<Renderer> ();
+		animator = GetComponent<Animator> ();
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 		gravity = -(2 * jumpHeight) / Mathf.Pow (timeToJumpApex, 2);
 		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
 		print ("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
 	}
 
 	void Update() {
-
-		renderer.enabled = activeHalf;
+//		if (!activeHalf) {
+//			return;
+//		}
+		charRenderer.enabled = activeHalf;
 
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
@@ -42,13 +52,31 @@ public class Player : MonoBehaviour {
 			velocity.y = jumpVelocity;
 		}
 
-		if (Input.GetKeyDown(KeyCode.RightShift)) {
-			this.activeHalf = !this.activeHalf;
-		}
+		if (attacking) {
+			if (this.attackTimer > 0) {
+				this.attackTimer -= Time.deltaTime;
+			} else {
+				this.attacking = false;
+				this.animator.SetBool ("attacking", this.attacking);
+			}
+		} else {
 
+			if (Input.GetKeyDown (KeyCode.RightShift)) {
+				this.activeHalf = !this.activeHalf;
+			}
+
+			if (Input.GetKeyDown (KeyCode.E) && !this.attacking) {
+				this.attacking = true;
+				this.animator.SetBool ("attacking", this.attacking);
+				this.attackTimer = attackTime;
+			}
+
+		}
 		float targetVelocityX = input.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp (velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
 		velocity.y += gravity * Time.deltaTime;
 		controller.Move (velocity * Time.deltaTime);
+		this.animator.SetFloat ("velocity", Mathf.Abs(velocity.x * Time.deltaTime));
+		this.spriteRenderer.flipX = velocity.x < -0.01;
 	}
 }
